@@ -4,9 +4,12 @@ import lombok.*;
 import org.open.market.common.BaseTimeEntity;
 import org.open.market.model.Address;
 import org.open.market.model.dto.AccountDto;
+import org.open.market.model.orders.Order;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -44,6 +47,9 @@ public class Account extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private Set<AccountRole> accountRole;
 
+    @OneToMany(mappedBy = "account")
+    private List<Order> orders = new ArrayList<>();
+
     public void update(AccountDto accountDto) {
         this.nickname = accountDto.getNickname();
         this.password = accountDto.getPassword();
@@ -52,6 +58,10 @@ public class Account extends BaseTimeEntity {
         this.email = accountDto.getEmail();
         this.address = accountDto.getAddress();
         // modifiedData
+    }
+
+    public void addToOrder(Order order) {
+        this.orders.add(order);
     }
 
 }
