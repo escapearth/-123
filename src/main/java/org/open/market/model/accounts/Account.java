@@ -2,8 +2,10 @@ package org.open.market.model.accounts;
 
 import lombok.*;
 import org.open.market.common.BaseTimeEntity;
+import org.open.market.model.dto.AccountDto;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -37,5 +39,14 @@ public class Account extends BaseTimeEntity {
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     private Set<AccountRole> accountRole;
+
+    public void update(AccountDto accountDto) {
+        this.nickname = accountDto.getNickname();
+        this.password = accountDto.getPassword();
+        this.accountRole = accountDto.getAccountRole();
+        this.phone = accountDto.getPhone();
+        this.email = accountDto.getEmail();
+        // modifiedData
+    }
 
 }
