@@ -47,4 +47,15 @@ public class AccountControllerTest extends CommonControllerTest {
                 .andExpect(jsonPath("id").exists())
                 .andExpect(jsonPath("nickname").value("nicknameaaa"));
     }
+
+    @Test
+    public void createAccount_Wrong_Input() throws Exception {
+        AccountDto dto = AccountDto.builder().build();
+
+        mockMvc.perform(post("/api/accounts")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(objectMapper.writeValueAsString(dto)))
+                .andExpect(status().isBadRequest());
+    }
+
 }

@@ -2,7 +2,6 @@ package org.open.market.model.accounts;
 
 import org.open.market.model.dto.AccountDto;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class AccountMapper {

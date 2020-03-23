@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
+
 @Service
 @RequiredArgsConstructor
 public class AccountService implements UserDetailsService {
@@ -24,6 +26,11 @@ public class AccountService implements UserDetailsService {
         account.setPassword(passwordEncoder.encode(dto.getPassword()));
 
         return AccountMapper.entityToDto(accountRepository.save(account));
+    }
+
+    public AccountDto getAccount(Long id) {
+        Account account = accountRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        return AccountMapper.entityToDto(account);
     }
 
     @Override

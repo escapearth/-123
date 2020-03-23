@@ -1,13 +1,13 @@
 package org.open.market.web;
 
 import lombok.RequiredArgsConstructor;
+import org.open.market.common.CurrentUser;
 import org.open.market.model.dto.AccountDto;
 import org.open.market.service.AccountService;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -24,6 +24,11 @@ public class AccountController {
         URI uri = ControllerLinkBuilder.linkTo(AccountController.class).slash(accountDto.getId()).toUri();
 
         return ResponseEntity.created(uri).body(accountDto);
+    }
+
+    @GetMapping(value = "/api/accounts")
+    public ResponseEntity getAccount(@CurrentUser AccountDto accountDto) {
+        return ResponseEntity.ok(accountService.getAccount(accountDto.getId()));
     }
 
 }
