@@ -15,6 +15,7 @@ public class AccountMapper {
                 .phone(account.getPhone())
                 .accountRole(account.getAccountRole())
                 .status(account.getStatus())
+                .address(account.getAddress())
                 .build();
     }
 
@@ -25,6 +26,7 @@ public class AccountMapper {
                 .password(accountDto.getPassword())
                 .phone(accountDto.getPhone())
                 .accountRole(accountDto.getAccountRole())
+                .address(accountDto.getAddress())
                 .status(AccountStatus.USER)
                 .build();
 

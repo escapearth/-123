@@ -4,6 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.open.market.common.CommonControllerTest;
+import org.open.market.model.Address;
 import org.open.market.model.accounts.Account;
 import org.open.market.model.accounts.AccountRole;
 import org.open.market.model.dto.AccountDto;
@@ -40,6 +41,7 @@ public class AccountControllerTest extends CommonControllerTest {
                 .nickname("defaultNickname" + index)
                 .phone("123451235")
                 .password("1234")
+                .address(new Address("aaa", "bbb","ccc"))
                 .build();
 
         return accountService.saveAccount(accountDto);
@@ -53,6 +55,7 @@ public class AccountControllerTest extends CommonControllerTest {
                 .nickname("n11111")
                 .phone("010-1234-1234")
                 .accountRole(Collections.unmodifiableSet(new HashSet<>(Arrays.asList(AccountRole.USER))))
+                .address(new Address("NY", "NY-Street", "12345"))
                 .build();
 
         mockMvc.perform(post("/api/accounts")
@@ -87,6 +90,7 @@ public class AccountControllerTest extends CommonControllerTest {
                 .andExpect(jsonPath("email").exists())
                 .andExpect(jsonPath("nickname").exists())
                 .andExpect(jsonPath("phone").exists())
+                .andExpect(jsonPath("address").exists())
                 .andExpect(jsonPath("status").value("USER"));
     }
 

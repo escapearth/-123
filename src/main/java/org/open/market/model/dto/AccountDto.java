@@ -3,6 +3,7 @@ package org.open.market.model.dto;
 import lombok.Builder;
 import lombok.Getter;
 import org.open.market.common.BaseTimeEntity;
+import org.open.market.model.Address;
 import org.open.market.model.accounts.AccountRole;
 import org.open.market.model.accounts.AccountStatus;
 
@@ -32,6 +33,8 @@ public class AccountDto extends BaseTimeEntity {
 
     @NotNull
     private String phone;
+
+    private Address address;
 
     private Set<AccountRole> accountRole;
 

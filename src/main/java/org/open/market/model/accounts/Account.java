@@ -2,6 +2,7 @@ package org.open.market.model.accounts;
 
 import lombok.*;
 import org.open.market.common.BaseTimeEntity;
+import org.open.market.model.Address;
 import org.open.market.model.dto.AccountDto;
 
 import javax.persistence.*;
@@ -33,6 +34,9 @@ public class Account extends BaseTimeEntity {
     @Column(name = "phone")
     private String phone;
 
+    @Embedded
+    private Address address;
+
     @Enumerated(EnumType.STRING)
     private AccountStatus status;
 
@@ -46,6 +50,7 @@ public class Account extends BaseTimeEntity {
         this.accountRole = accountDto.getAccountRole();
         this.phone = accountDto.getPhone();
         this.email = accountDto.getEmail();
+        this.address = accountDto.getAddress();
         // modifiedData
     }
 
