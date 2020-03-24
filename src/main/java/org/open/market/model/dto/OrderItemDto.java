@@ -12,11 +12,11 @@ public class OrderItemDto {
     private int quantity;
     private ItemDto itemDto;
 
-    public OrderItem to() {
+    public OrderItem toEntity() {
         return OrderItem.builder()
                 .orderPrice(this.orderPrice)
                 .quantity(this.quantity)
-                .item(this.itemDto.from())
+                .item(this.itemDto.toEntity())
                 .build();
     }
 }

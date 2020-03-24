@@ -3,6 +3,7 @@ package org.open.market.model.orders;
 import lombok.*;
 import org.open.market.model.accounts.Account;
 import org.open.market.model.delivery.Delivery;
+import org.open.market.model.payment.Payment;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -14,12 +15,18 @@ import java.util.List;
 @Setter
 @Table(name = "orders", indexes = {@Index(columnList = "orderAt")})
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 public class Order {
 
     @Id
     @GeneratedValue
     @Column(name = "order_id")
     private Long id;
+
+    private LocalDateTime orderAt;
+
+    private int totalPrice;
 
     @ManyToOne
     @JoinColumn(name = "account_id")
@@ -28,8 +35,6 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    private LocalDateTime orderAt;
-
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
@@ -37,12 +42,8 @@ public class Order {
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 
-    @Builder
-    public Order(Account account, List<OrderItem> orderItems, LocalDateTime orderAt, OrderStatus status, Delivery delivery) {
-        this.account = account;
-        this.orderItems = orderItems;
-        this.orderAt = orderAt;
-        this.status = status;
-        this.delivery = delivery;
-    }
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "payment_id")
+    private Payment payment;
+
 }

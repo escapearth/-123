@@ -1,5 +1,7 @@
 package org.open.market.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Builder;
 import lombok.Getter;
 import org.open.market.common.BaseTimeEntity;
@@ -14,8 +16,8 @@ import java.util.Set;
 /**
 * @author halfdev
 * @since 2020-03-23
-* TODO, 개인정보는 어디까지 허용할건지?
 */
+//@JsonIgnoreProperties({"email", "password", "phone", "address", "accountRole"})
 @Getter
 @Builder
 public class AccountDto extends BaseTimeEntity {

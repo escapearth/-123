@@ -10,6 +10,8 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 public class Delivery {
 
     @Id
@@ -27,3 +29,4 @@ public class Delivery {
     private DeliveryStatus status;
 
 }
+

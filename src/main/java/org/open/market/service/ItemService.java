@@ -21,7 +21,7 @@ public class ItemService {
 
     @Transactional
     public Item saveItem(ItemDto itemDto) {
-        Item item = itemDto.from();
+        Item item = itemDto.toEntity();
         List<ItemCategory> itemCategories = item.getItemCategories();
 
         for (ItemCategory itemCategory : itemCategories) {
@@ -34,7 +34,7 @@ public class ItemService {
     }
 
     @Transactional
-    public void removeStock(Long itemId, int quantity) {
+    public void decrementStock(Long itemId, int quantity) {
         Item item = itemRepository.findById(itemId).orElseThrow(EntityNotFoundException::new);
 
         int currentStock = item.getStockQuantity() - quantity;
@@ -43,6 +43,13 @@ public class ItemService {
         }
 
         item.setStockQuantity(currentStock);
+    }
+
+    @Transactional
+    public void incrementStock(Long itemId, int quantity) {
+        Item item = itemRepository.findById(itemId).orElseThrow(EntityNotFoundException::new);
+
+        item.setStockQuantity(item.getStockQuantity() + quantity);
     }
 
 

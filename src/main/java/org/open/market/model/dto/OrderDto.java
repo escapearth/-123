@@ -1,10 +1,6 @@
 package org.open.market.model.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.open.market.model.accounts.Account;
+import lombok.*;
 import org.open.market.model.orders.Order;
 import org.open.market.model.orders.OrderItem;
 import org.open.market.model.orders.OrderStatus;
@@ -15,22 +11,22 @@ import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderDto {
+
+    private DeliveryDto deliveryDto;
 
     private List<OrderItemDto> orderItemDtoList;
 
-    private Account account;
-
-    public Order to() {
-        List<OrderItem> orderItems = new ArrayList<>();
-        for (OrderItemDto orderItemDto : orderItemDtoList) {
-            orderItems.add(orderItemDto.to());
-        }
+    public Order toEntity() {
+        List<OrderItem> tempOrderItems = new ArrayList<>();
+        orderItemDtoList.forEach((dto) -> tempOrderItems.add(dto.toEntity()));
 
         return Order.builder()
-                .orderItems(orderItems)
-                .account(this.account)
+                .delivery(this.deliveryDto.toEntity())
+                .orderItems(tempOrderItems)
                 .status(OrderStatus.ORDER)
                 .orderAt(LocalDateTime.now())
                 .build();

@@ -1,7 +1,6 @@
 package org.open.market.model.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.*;
 import org.open.market.model.accounts.Account;
 import org.open.market.model.items.Item;
 import org.open.market.model.items.ItemCategory;
@@ -9,17 +8,27 @@ import org.open.market.model.items.ItemCategory;
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
+@Setter
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 public class ItemDto {
 
+    private Long id;
+
     private String name;
+
     private int price;
+
     private int stockQuantity;
+
     private Account account;
+
     private List<ItemCategory> itemCategories;
 
-    public Item from() {
+    public Item toEntity() {
         return Item.builder()
+                .id(this.id)
                 .name(this.name)
                 .price(this.price)
                 .stockQuantity(this.stockQuantity)
