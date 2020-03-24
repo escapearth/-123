@@ -1,11 +1,9 @@
 package org.open.market.web;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.open.market.common.CommonControllerTest;
 import org.open.market.model.Address;
-import org.open.market.model.accounts.Account;
 import org.open.market.model.accounts.AccountRole;
 import org.open.market.model.dto.AccountDto;
 import org.open.market.repository.AccountRepository;

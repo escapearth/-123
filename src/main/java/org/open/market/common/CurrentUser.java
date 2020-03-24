@@ -11,6 +11,7 @@ import java.lang.annotation.Target;
 * @author halfdev
 * @since 2020-03-23
 * Controller 에서 Session 의 정보들에 접근하고 싶을 때 파라미터에 선언해준다
+ * Id로 찾지 않고, @AuthenticationPrincipal 으로 조회
  *
 */
 @Retention(RetentionPolicy.RUNTIME) //어노테이션 유지 범위
